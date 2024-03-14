@@ -28,7 +28,7 @@ function App() {
 })	
 
 .then(data =>{
-  // setContainer(data);
+  setContainer(data.coord);
   console.log(data);
 })
 
@@ -45,7 +45,7 @@ const submitHandler = e =>{
   setFinalPoint(endPoint);
 }
   return (
-    
+      <div>
       <form onSubmit={submitHandler}>
       <div>
         <center><h1> SEARCH THE city weather YOU WANT</h1></center>
@@ -53,7 +53,16 @@ const submitHandler = e =>{
       <button type='submit' className='btn btn-primary'>submit</button>
       </center></div>
       </form>
-      
+      <div className='car'>{container.map((item,index)=>{
+        return (<div key={index} className='card'  style={{width: "18rem"} }>
+          <p>{item.lon}</p>
+
+          </div>
+       
+ )
+      })}
+      </div>
+      </div>
   )
 }
 
