@@ -1,99 +1,49 @@
-import React, { useEffect, useState } from 'react'
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function App() {
-  
-  const [endPoint,setPoint]=useState('')
-  const [container,setContainer]=useState([])
-  const [finalPoint,setFinalPoint]=useState('');
+const Weather = () => {
+  const [weatherData, setWeatherData] = useState(null);
+  const [city, setCity] = useState('');
 
-  useEffect(()=>{
-    fetchme()
-  },[finalPoint])
+  const API_KEY = 'f67d7494d305673cbe6ed85f6237ab5c';
+  const API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
-
-  const  fetchme = async ()=> { 
-
-    fetch(`https://weather-api138.p.rapidapi.com/weather?city_name=+madurai${endPoint}`,{
-      method: await 'GET',
-      headers: {
-        'X-RapidAPI-Key': '79b226d5c5msh58936cc3837787ap1e2f40jsn18453c50cd1b',
-        'X-RapidAPI-Host': 'weather-api138.p.rapidapi.com'
+  const fetchWeather = async () => {
+    try {
+      const response = await axios.get(API_URL, {
+        params: {
+          q: city,
+          appid: API_KEY,
+          units: 'metric', // or 'imperial' for Fahrenheit
+        },
+      });
+      console.log(response.data)
+      setWeatherData(response.data);
+      
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
     }
-  })
-  
-.then ( response => {
-  return response.json();
-})	
+  };
 
-.then(data =>{
-  console.log(data);
-  setContainer(data);
-})
-
-.catch (error => {
-	console.error(error);
-})
-}
-
-function onchangeHandler(e){
-  setPoint(e.target.value)
-}
-
-const submitHandler = e =>{
-  e.preventDefault();
-  setFinalPoint(endPoint);
-}
   return (
     <div>
-      <form onSubmit={submitHandler}>
-        <center><h1> SEARCH THE songs YOU WANT</h1></center>
-        <center>  <input type="text" className='inputField'  value={endPoint} onChange={onchangeHandler}/>
-      <button type='submit' className='btn btn-primary'>submit</button>
-      </center>
-      
-      <div className='car'>{container.map((item,index)=>{
-        return (<div key={index} className='card'  style={{width: "18rem"} }>
-          <p>{item.temp}</p>
-          </div>
-       
- )
-      })}
-      </div>
-</form>
-  </div>
-  )
-}
+      <input
+        type="text"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        placeholder="Enter city name"
+      />
+      <button onClick={fetchWeather}>Get Weather</button>
+      {weatherData && (
+        <div>
+          <h2>{weatherData.name}</h2>
+          <p>Temperature: {weatherData.main.temp}°C</p>
+          <p>Description: {weatherData.weather[0].description}</p>
+          <p>Humidity: {weatherData.main.humidity}%</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default App;
-
-// {coord: {…}, weather: Array(1), base: 'stations', main: {…}, visibility: 10000, …}
-// base
-// : 
-// "stations"
-// clouds
-// : 
-// {all: 6}
-// cod
-// : 
-// 200
-// coord
-// : 
-// {lon: 78.1167, lat: 9.9333}
-// dt
-// : 
-// 1710430746
-// id
-// : 
-// 1264521
-// main
-// : 
-// {temp: 301.44, feels_like: 302.24, temp_min: 301.44, temp_max: 301.44, pressure: 1013, …}
-// name
-// : 
-// "Madurai"
-// sys
-// : 
-// {country: 'IN', sunrise: 1710377707, sunset: 1710421106}
-// t
+export default Weather;
