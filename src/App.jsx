@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -26,24 +29,37 @@ const Weather = () => {
   };
 
   return (
-    <div>
-      <input
+  <div className='fuck'>
+    <div className='center'>
+      <input 
+        className='input'
         type="text"
         value={city}
         onChange={(e) => setCity(e.target.value)}
         placeholder="Enter city name"
+        width={200}
       />
-      <button onClick={fetchWeather}>Get Weather</button>
+      <Button onClick={fetchWeather}  >Get Weather </Button>
       {weatherData && (
-        <div>
+        <div className='container'>
+        <div className='row'>
+          <div className='col'>
           <h2>{weatherData.name}</h2>
           <p>Temperature: {weatherData.main.temp}°C</p>
           <p>Description: {weatherData.weather[0].description}</p>
           <p>Humidity: {weatherData.main.humidity}%</p>
+          <p>windSpeed: {weatherData.wind.speed}</p>
         </div>
+            <div className="col ">
+            <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`} alt="img"/>
+                    
+           </div>
+        </div>
+       </div>
       )}
     </div>
-  );
+    </div>
+      );
 };
 
 export default Weather;

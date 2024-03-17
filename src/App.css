@@ -1,21 +1,50 @@
-.car{
-    
+
+.fuck{
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  height: 100vh;
+  align-items: center;
+
 }
-.card{
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  
+.center{
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: rgb(50, 168, 157);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(5, 5, 5, 0.87); /* Soft box shadow for depth */
+  padding: 20px;
+  color: #fff; /* White text color for contrast */
+  font-family: Arial, sans-serif;
 }
 
-.inputField{
-margin-top: 10px;
-margin-bottom: 20px;
-margin-right: 10px;
-}
+.input{
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #e6f7ff; /* Light blue background */
+  padding: 10px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;}
 h1{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button{
+  margin-left: 10px;
+  margin-top: 2px;
+  background-color: #4da6ff; /* Darker blue button */
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+input:focus {
+  border-color: #2680eb; /* Darker blue border on focus */
+}
+
+button:hover {
+  background-color: #2680eb; /* Darker blue on hover */
 }
